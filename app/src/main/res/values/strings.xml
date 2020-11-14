@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">LuggageBox</string>
+
+    <string name="kakao_app_key">dfc2430c2e2a142ba0a3f4b9f825ebd2</string>
+    <string name="logoImage">logo</string>
+    <string name="kakaoLogo">kakao</string>
+</resources>
