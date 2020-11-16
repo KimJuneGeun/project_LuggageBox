@@ -1,15 +1,10 @@
 package com.example.luggagebox;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -30,7 +25,7 @@ public class SignIn extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.signin_layout);
+        setContentView(R.layout.activity_signin);
 
       btn_custom_login = (ImageButton) findViewById(R.id.btn_custom_login);
       btn_custom_logout = (ImageButton) findViewById(R.id.btn_custom_logout);
@@ -43,9 +38,10 @@ public class SignIn extends AppCompatActivity {
             public void onClick(View view) {
                 Log.d(Tag, "MainActivity - onLoginButtonClicked() called");
                 session.open(AuthType.KAKAO_LOGIN_ALL, SignIn.this);
-                if(session.isOpened()) {
-                    redirectHomeActivity();
-                }
+//                if(session.isOpened()) {
+//                    redirectHomeActivity();
+//                }
+                redirectHomeActivity();
 
 
             }

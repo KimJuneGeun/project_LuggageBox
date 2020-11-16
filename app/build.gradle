@@ -39,11 +39,12 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     // 카카오 로그인
     implementation group: 'com.kakao.sdk', name: 'usermgmt', version: '1.30.2'
+    // Naver 지도 SDK
+    implementation 'com.naver.maps:map-sdk:3.10.0'
 
-
-    // 카카오 지도
-    compile files('libs/libDaumMapEngineApi.jar')
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile files('libs/libDaumMapAndroid.jar')
+//    // 카카오 지도
+//    compile files('libs/libDaumMapEngineApi.jar')
+//    compile fileTree(include: ['*.jar'], dir: 'libs')
+//    compile files('libs/libDaumMapAndroid.jar')
 
 }
