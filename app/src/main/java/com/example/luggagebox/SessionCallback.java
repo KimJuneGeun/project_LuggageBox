@@ -1,8 +1,12 @@
 package com.example.luggagebox;
 
+import android.content.Intent;
 import android.util.Log;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.kakao.auth.ISessionCallback;
+import com.kakao.auth.Session;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.MeV2ResponseCallback;
@@ -12,12 +16,15 @@ import com.kakao.usermgmt.response.model.UserAccount;
 import com.kakao.util.OptionalBoolean;
 import com.kakao.util.exception.KakaoException;
 
-public class SessionCallback implements ISessionCallback {
+import static androidx.core.content.ContextCompat.startActivity;
+
+public class SessionCallback extends AppCompatActivity implements ISessionCallback {
 
     // 로그인에 성공한 상태
     @Override
     public void onSessionOpened() {
         requestMe();
+
     }
 
     // 로그인에 실패한 상태
@@ -27,8 +34,10 @@ public class SessionCallback implements ISessionCallback {
     }
 
 
+
     // 사용자 정보 요청
     public void requestMe() {
+
         UserManagement.getInstance()
                 .me(new MeV2ResponseCallback() {
                     @Override
@@ -81,4 +90,9 @@ public class SessionCallback implements ISessionCallback {
                     }
                 });
     }
+    private void redirectHomeActivity() {
+        startActivity(new Intent(this, Map.class));
+        finish();
+    }
 }
+
