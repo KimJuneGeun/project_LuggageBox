@@ -38,6 +38,7 @@ public class SignIn extends AppCompatActivity {
             public void onClick(View view) {
                 Log.d(Tag, "MainActivity - onLoginButtonClicked() called");
                 session.open(AuthType.KAKAO_LOGIN_ALL, SignIn.this);
+
             }
         });
 

@@ -2,9 +2,11 @@ package com.example.luggagebox;
 
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.kakao.auth.ApiErrorCode;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
 import com.kakao.network.ErrorResult;
@@ -40,6 +42,9 @@ public class SessionCallback extends AppCompatActivity implements ISessionCallba
 
         UserManagement.getInstance()
                 .me(new MeV2ResponseCallback() {
+
+
+
                     @Override
                     public void onSessionClosed(ErrorResult errorResult) {
                         Log.e("KAKAO_API", "세션이 닫혀 있음: " + errorResult);
@@ -47,17 +52,21 @@ public class SessionCallback extends AppCompatActivity implements ISessionCallba
 
                     @Override
                     public void onFailure(ErrorResult errorResult) {
+                        int result = errorResult.getErrorCode();
                         Log.e("KAKAO_API", "사용자 정보 요청 실패: " + errorResult);
+                        if(result == ApiErrorCode.CLIENT_ERROR_CODE) {
+                            Toast.makeText(getApplicationContext(), "네트워크 연결이 불안정합니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            Toast.makeText(getApplicationContext(),"로그인 도중 오류가 발생했습니다: "+errorResult.getErrorMessage(),Toast.LENGTH_SHORT).show();
+                        }
                     }
-
                     @Override
                     public void onSuccess(MeV2Response result) {
 
                         Log.i("KAKAO_API", "사용자 아이디: " + result.getId());
-
                         UserAccount kakaoAccount = result.getKakaoAccount();
                         if (kakaoAccount != null) {
-
                             // 이메일
                             String email = kakaoAccount.getEmail();
 
@@ -86,6 +95,7 @@ public class SessionCallback extends AppCompatActivity implements ISessionCallba
                             } else {
                                 // 프로필 획득 불가
                             }
+                            redirectHomeActivity();
                         }
                     }
                 });
@@ -95,4 +105,3 @@ public class SessionCallback extends AppCompatActivity implements ISessionCallba
         finish();
     }
 }
-
