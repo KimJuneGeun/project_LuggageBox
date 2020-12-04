@@ -33,6 +33,8 @@
         </activity>
         <activity android:name=".LoadingActivity">
         </activity>
+        <activity android:name=".manager_webview">
+        </activity>
     </application>
 
 </manifest>
