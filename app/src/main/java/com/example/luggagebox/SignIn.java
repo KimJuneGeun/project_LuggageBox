@@ -7,9 +7,23 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.kakao.auth.ApiErrorCode;
 import com.kakao.auth.AuthType;
 import com.kakao.auth.ISessionCallback;
@@ -24,23 +38,30 @@ import com.kakao.usermgmt.response.model.UserAccount;
 import com.kakao.util.OptionalBoolean;
 import com.kakao.util.exception.KakaoException;
 
+import java.util.HashMap;
+
 import static androidx.core.content.ContextCompat.startActivity;
 
 public class SignIn extends AppCompatActivity {
     String Tag = "로그";
     private ImageButton btn_custom_login;
     private ImageButton btn_custom_logout;
-
+    String TAG = "출력";
     private SessionCallback sessionCallback = new SessionCallback();
     Session session;
-
+    int chk;
+    //Firebase
+    FirebaseFirestore mDatabase = FirebaseFirestore.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
-
+        chk = 1;
         btn_custom_login = (ImageButton) findViewById(R.id.btn_custom_login);
         btn_custom_logout = (ImageButton) findViewById(R.id.btn_custom_logout);
+
+        // Firebase
+      //  mDatabase = FirebaseDatabase.getInstance().getReference();
 
         session = Session.getCurrentSession();
         session.addCallback(sessionCallback);
@@ -164,15 +185,72 @@ public class SignIn extends AppCompatActivity {
                                 } else {
                                     // 프로필 획득 불가
                                 }
-                                redirectHomeActivity();
+
+                                saveDB(result.getId(), profile.getNickname(), email);
+                              //  print();
+                                //redirectHomeActivity();
                             }
                         }
                     });
         }
 
+        // DB 연동 - 계정정보 갱신
+        private void saveDB(final long id, final String name, final String email) {
+            mDatabase.collection("UserProfile")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    if(document.contains(Long.toString(id))) {
+                                        chk=0;
+                                        redirectHomeActivity();
+
+                                    }
+//                                    if(true) {
+//                                        Log.d(TAG, document.getId() + " => " + document.getData().containsValue("isTel"));
+//                                    }
+                                 //   Log.d(TAG, document.getId() + " => " + document.getData().containsValue("isTel"));
+                                }
+                                if(chk == 1) {
+                                    HashMap user = new HashMap<>();
+                                    user.put("ID", id);
+                                    user.put("name", name);
+                                    user.put("email", email);
+                                    user.put("Tel", "");
+                                    user.put("isTel", false);
+                                    user.put("isMGR", false);
+                                    mDatabase.collection("UserProfile")
+                                            .document(id + "")
+                                            .set(user)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                }
+                                            });
+                                    redirectPhoneActivity(id, name);
+                               //     Log.d(TAG, document.getId() + " => " + document.getData().containsValue("isTel"));
+                                }
+                            } else {
+                                Log.w(TAG, "Error getting documents.", task.getException());
+                            }
+                        }
+                    });
+
+
+
+        }
         private void redirectHomeActivity() {
             startActivity(new Intent(SignIn.this, Map.class));
             finish();
+        }
+        private void redirectPhoneActivity(long id, String name) {
+
+            Intent intent = new Intent(SignIn.this,PhoneActivity.class);
+            intent.putExtra("id",id);
+            intent.putExtra("name",name);
+            startActivity(intent);
         }
 
     }

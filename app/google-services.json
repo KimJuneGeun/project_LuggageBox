@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "398299911483",
+    "project_id": "luggagebox-67df6",
+    "storage_bucket": "luggagebox-67df6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:398299911483:android:9fe9ab9e41cc87061bd31e",
+        "android_client_info": {
+          "package_name": "com.example.luggagebox"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "398299911483-1vj9q1emfkk5qm8fpsgi2d07v2rlv743.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.luggagebox",
+            "certificate_hash": "7ace4f52723acb3a9e22469a61104295ee1d4781"
+          }
+        },
+        {
+          "client_id": "398299911483-b7lvu8n999bdlkk39jinbrsmj1qai1rs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgHoDWzU-Ce4H8HUWtRLMFe9gT8Q69oOk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "398299911483-b7lvu8n999bdlkk39jinbrsmj1qai1rs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

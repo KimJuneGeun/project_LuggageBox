@@ -35,6 +35,8 @@
         </activity>
         <activity android:name=".manager_webview">
         </activity>
+        <activity android:name=".PhoneActivity">
+        </activity>
     </application>
 
 </manifest>
