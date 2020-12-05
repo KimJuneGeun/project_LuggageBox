@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/btn_back"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/nav_btn_back"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="5dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="맡겼던 짐 목록"
+        android:textColor="#000000"
+        android:textFontWeight="700"
+        android:textSize="25dp"
+        android:layout_marginTop="35dp"
+        android:gravity="center_horizontal"/>
+
+    <TextView
+        android:id="@+id/Day"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="100dp"
+        android:text="2020.10.27"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="20dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="현재상태: 승인"
+        android:textSize="10dp"
+        android:layout_marginTop="107dp"
+        android:layout_marginLeft="135dp"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/shawdow"
+        android:orientation="horizontal"/>
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/box"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="175dp"
+        android:layout_marginLeft="40dp" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="170dp"
+        android:textSize="18dp"
+        android:text="location"
+        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+    <TextView
+        android:id="@+id/Address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="200dp"
+        android:text="동의대학교 지천관 (주소)"
+        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="280dp"
+        android:text="짐종류"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/Kinds"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="캐리어"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="280dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="310dp"
+        android:text="짐 크기"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/Size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MIDDLE"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="310dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="340dp"
+        android:text="시작하는 날짜/시간"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/StartTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2020.10.27 15:00"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="340dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="370dp"
+        android:text="찾아간 시간"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/EndTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2020.10.28 15:00"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="370dp"/>
+
+    <ImageView
+        android:id="@+id/btn_cancel"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/btn_cancel"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="600dp"
+        android:layout_marginLeft="160dp" />
+
+
+</RelativeLayout>

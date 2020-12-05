@@ -1,5 +1,6 @@
 package com.example.luggagebox;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -9,14 +10,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class wating extends AppCompatActivity {
+public class past_list extends AppCompatActivity implements View.OnClickListener {
 
-    private ImageView btnBack;
-
+private ImageView btnBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wating);
+        setContentView(R.layout.activity_past_list);
         //뒤로가기 기능
         btnBack = (ImageView) findViewById(R.id.btn_back);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -29,14 +29,14 @@ public class wating extends AppCompatActivity {
 
 
         //리스트뷰 선언
-        ListView list = (ListView) findViewById((R.id.customlistview_waiting));
+        ListView list = (ListView) findViewById((R.id.customlistview_past));
         //리스트 연결위한 어댑터 선언
-        final watingAdapter adapter;
+        final pastAdapter adapter;
 
-        adapter = new watingAdapter();
+        adapter = new pastAdapter();
         list.setAdapter(adapter);
         // 확인 버튼 이벤트 처리
-        adapter.addItem("임도헌", "캐리어" , "middle" , "2020.10.27 15:00" , "2020.10.28 15:00");
+        adapter.addItem1("2020.10.27","동의대학교 지천관");
         //listview 갱신.
         adapter.notifyDataSetChanged();
 
@@ -56,6 +56,19 @@ public class wating extends AppCompatActivity {
             }
         });
 
+        /* 아이템 클릭시 작동 */
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView parent, View v, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), past_info.class);
+                /* putExtra의 첫 값은 식별 태그, 뒤에는 다음 화면에 넘길 값 */
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 }
-

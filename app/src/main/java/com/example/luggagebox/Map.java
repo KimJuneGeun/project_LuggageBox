@@ -21,12 +21,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraAnimation;
 import com.naver.maps.map.CameraPosition;
@@ -103,6 +106,17 @@ public class Map extends AppCompatActivity implements NavigationView.OnNavigatio
         navigationView = findViewById(R.id.nav_view);
         ImageView = (View) findViewById(R.id.btn_address);
         navigationView.setNavigationItemSelectedListener(this);
+        //헤더메인 들고오기
+        View manager = navigationView.getHeaderView(0);
+        ImageView Btn_manager = manager.findViewById(R.id.btn_manager);
+        Btn_manager.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent manager = new Intent(Map.this, manager_map.class);
+                startActivity(manager);
+                finish();
+            }
+        });
     }
 
     //마커 생성
@@ -227,6 +241,22 @@ public class Map extends AppCompatActivity implements NavigationView.OnNavigatio
 //            cpNaverMap.setMaxZoom(18.0);
 //            cpNaverMap.moveCamera(cameraUpdate);
 
+            // 개인 프로필 정보 넣을 수 있는 위치 지정
+            navigationView.setNavigationItemSelectedListener(this);
+            View header = navigationView.getHeaderView(0);
+
+            // 프로필 정보 - 이름값 갱신
+            TextView tv_username = (TextView) header.findViewById(R.id.textview_username);
+            tv_username.setText(SignIn.name);
+
+            // 프로필 정보 - 이름값 갱신
+            TextView tv_email = (TextView) header.findViewById(R.id.textview_email);
+            tv_email.setText(SignIn.Email);
+
+            // 프로필 정보 - 사진 갱신
+            ImageView iv_photo = (ImageView) header.findViewById(R.id.ImageView_Photo);
+            Glide.with(this).load(SignIn.MyImageLink).circleCrop().into(iv_photo);
+
         }
 
     }
@@ -262,15 +292,24 @@ public class Map extends AppCompatActivity implements NavigationView.OnNavigatio
                 startActivity(now);
                 break;
             case R.id.nav3:// 과거 맡긴 짐
-//                Intent past = new Intent(Map.this, .class);
-//                startActivity(past);
+                Intent past = new Intent(Map.this, past_list.class);
+                startActivity(past);
                 break;
             case R.id.nav4:// 관리자 신청
                 Intent web = new Intent(Map.this, manager_webview.class);
                 startActivity(web);
                 break;
             case R.id.nav5:// 로그아웃
+                UserManagement.getInstance()
+                        .requestLogout(new LogoutResponseCallback() {
+                            @Override
+                            public void onCompleteLogout() {
+                                Toast.makeText(Map.this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                 finish();
+                Intent back = new Intent(Map.this, SignIn.class);
+                startActivity(back);
                 break;
         }
 

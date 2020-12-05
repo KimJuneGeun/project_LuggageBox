@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/Day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="2020.10.27"
+        android:textSize="16dp"
+        />
+
+    <TextView
+        android:id="@+id/Address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="주소"
+        android:textSize="16dp"
+        android:layout_weight="60"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:rotationY="178"
+        android:layout_marginLeft="340dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/nav_btn_back" />
+
+
+
+
+</RelativeLayout>

@@ -5,6 +5,7 @@
     android:layout_height="match_parent">
 
     <ImageView
+        android:id="@+id/btn_back"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:src="@drawable/nav_btn_back"

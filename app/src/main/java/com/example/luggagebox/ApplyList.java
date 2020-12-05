@@ -7,6 +7,8 @@ public class ApplyList {
     private String Size;
     private String StartTime;
     private String EndTime;
+    private String Day;
+    private String Address;
 
     //주소 세팅
     public void setName(String name){
@@ -50,5 +52,18 @@ public class ApplyList {
     // 종료 시간 얻어오기
     public String getEndTime(){
         return this.EndTime;
+    }
+
+    // 날짜 세팅
+    public void setDay(String day) { Day = day;}
+    //날짜 얻어오기
+    public String getDay(){ return this.Day;}
+    //주소 세팅
+    public void setAddress(String address){
+        Address = address;
+    }
+    //주소 얻어오기
+    public String getAddress(){
+        return this.Address;
     }
 }

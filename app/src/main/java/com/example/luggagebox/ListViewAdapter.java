@@ -37,6 +37,7 @@ public class ListViewAdapter extends BaseAdapter {
 
         AddressTextView.setText(listViewItem.getAddress());
         return convertView;
+
     }
     @Override
     public long getItemId(int position) {

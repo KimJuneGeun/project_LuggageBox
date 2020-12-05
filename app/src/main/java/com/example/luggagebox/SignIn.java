@@ -46,22 +46,29 @@ import static androidx.core.content.ContextCompat.startActivity;
 public class SignIn extends AppCompatActivity {
     String Tag = "로그";
     private ImageButton btn_custom_login;
-    private ImageButton btn_custom_logout;
+// /   private ImageButton btn_custom_logout;
     String TAG = "출력";
     private SessionCallback sessionCallback = new SessionCallback();
     Session session;
     int chk;
+
+    // 내 정보값 저장
+    static String id = "";
+    static String name = "";
+    static String Tel = "";
+    static String Email = "";
+    static String MyImageLink = "";
+
     //Firebase
     FirebaseFirestore mDatabase = FirebaseFirestore.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
         btn_custom_login = (ImageButton) findViewById(R.id.btn_custom_login);
-        btn_custom_logout = (ImageButton) findViewById(R.id.btn_custom_logout);
-        chk =1;
-        // Firebase
-      //  mDatabase = FirebaseDatabase.getInstance().getReference();
+//        btn_custom_logout = (ImageButton) findViewById(R.id.btn_custom_logout);
+        chk = 1;
 
         session = Session.getCurrentSession();
         session.addCallback(sessionCallback);
@@ -75,18 +82,18 @@ public class SignIn extends AppCompatActivity {
             }
         });
 
-        btn_custom_logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                UserManagement.getInstance()
-                        .requestLogout(new LogoutResponseCallback() {
-                            @Override
-                            public void onCompleteLogout() {
-                                Toast.makeText(SignIn.this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-            }
-        });
+//        btn_custom_logout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                UserManagement.getInstance()
+//                        .requestLogout(new LogoutResponseCallback() {
+//                            @Override
+//                            public void onCompleteLogout() {
+//                                Toast.makeText(SignIn.this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
+//            }
+//        });
     }
 
     @Override
@@ -186,10 +193,11 @@ public class SignIn extends AppCompatActivity {
                                     // 프로필 획득 불가
                                 }
 
-                              //  saveDB(result.getId(), profile.getNickname(), email);
-                              //  print();
-                                //redirectHomeActivity();
-                             //   inputData(result.getId(), profile.getNickname(), email);
+                                // 내 정보값 저장
+                                id = Long.toString(result.getId());
+                                name = profile.getNickname();
+                                Email = email;
+                                MyImageLink = profile.getThumbnailImageUrl();
                                 saveDB(result.getId(), profile.getNickname(), email);
                             }
                         }
@@ -213,6 +221,7 @@ public class SignIn extends AppCompatActivity {
                                     }
                                 }
                                 if(chk == -1) {
+                                    GetTel();
                                     redirectHomeActivity();
                                 }
                                 else {
@@ -227,6 +236,29 @@ public class SignIn extends AppCompatActivity {
 
 
         }
+
+        private void GetTel(){
+            FirebaseFirestore mDatabase = FirebaseFirestore.getInstance();
+            mDatabase.collection("UserProfile").whereEqualTo("ID", Long.parseLong(id))
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    String Test = document.getData().toString();
+                                    int idx = Test.indexOf(",");
+                                    String[] Test2 = Test.split(",");
+                                    String Test3 = Test2[2];
+                                    Tel = Test3.substring(5);
+                                }
+                            } else {
+                                Log.w(TAG, "Error getting documents.", task.getException());
+                            }
+                        }
+                    });
+        }
+
         private void inputData(long id, String name, String email) {
             HashMap user = new HashMap<>();
             user.put("ID", id);

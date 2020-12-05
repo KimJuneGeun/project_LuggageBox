@@ -8,6 +8,8 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.ImageView;
 
 import androidx.core.app.ActivityCompat;
 
@@ -22,11 +24,21 @@ public class QRCodeScan extends Activity {
 
     CameraSource cameraSource;
     SurfaceView cameraSurface;
+    private ImageView btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qr);
+        //뒤로가기 기능
+        btnBack = (ImageView) findViewById(R.id.btn_back);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                onBackPressed();
+            }
+        });
 
         cameraSurface = (SurfaceView) findViewById(R.id.cameraSurface); // SurfaceView 선언 :: Boilerplate
 

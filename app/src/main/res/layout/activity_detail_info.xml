@@ -5,12 +5,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#5559b4">
-
     <com.naver.maps.map.MapView
         android:id="@+id/map_view"
         android:layout_width="match_parent"
-        android:layout_height="500dp" />
+        android:layout_height="match_parent" />
+
     <ImageView
+        android:id="@+id/btn_back"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:src="@drawable/nav_btn_back"
@@ -100,21 +101,21 @@
             android:textSize="20dp"/>
 
         <Button
-            android:id="@+id/btn_call"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="170dp"
             android:layout_marginTop="158dp"
             android:background="@drawable/btn_call"
+            android:id="@+id/btn_call"
             />
 
         <Button
-            android:id="@+id/btn_chat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="270dp"
             android:layout_marginTop="158dp"
             android:background="@drawable/btn_chat"
+            android:id="@+id/btn_chat"
             />
 
 

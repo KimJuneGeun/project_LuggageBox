@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
@@ -21,6 +22,30 @@ public class register2 extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register2);
+
+        Intent intent = getIntent();
+        String en_k = intent.getStringExtra("짐종류");
+        String en_s = intent.getStringExtra("짐크기");
+        String Date1 = intent.getStringExtra("시작날짜");
+        String Date2 = intent.getStringExtra("시작시간");
+        String Date3 = intent.getStringExtra("끝날짜");
+        String Date4 = intent.getStringExtra("끝시간");
+
+
+        TextView en_ki=(TextView)findViewById(R.id.en_ki);
+        TextView en_si=(TextView)findViewById(R.id.en_si);
+        TextView Date11=(TextView)findViewById(R.id.Date1);
+        TextView Date22=(TextView)findViewById(R.id.Date2);
+        TextView Date33=(TextView)findViewById(R.id.Date3);
+        TextView Date44=(TextView)findViewById(R.id.Date4);
+
+
+        en_ki.setText(en_k);
+        en_si.setText(en_s);
+        Date11.setText(Date1);
+        Date22.setText(Date2);
+        Date33.setText(Date3);
+        Date44.setText(Date4);
 
         qrButton = (Button)findViewById(R.id.btn_QRcode);   // Button Boilerplate
 

@@ -2,6 +2,7 @@ package com.example.luggagebox;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,9 +17,21 @@ import java.util.Date;
 
 public class QRcodeCreate extends AppCompatActivity {
 
+    private ImageView btnBack;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newqr);
+
+        //뒤로가기 기능
+        btnBack = (ImageView) findViewById(R.id.btn_back);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                onBackPressed();
+            }
+        });
         ImageView img_barcode;
         img_barcode = (ImageView)findViewById(R.id.img_barcode) ;
         //현재 시간 가져온다

@@ -7,24 +7,30 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F2994A"
+    android:background="#ffffff"
     tools:context=".PhoneActivity">
 
     <View
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="0.13"/>
+        android:layout_weight="0.3"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Luggage BOX"
+        android:gravity="center"
+        android:layout_marginBottom="10dp"
+        />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text=" 전화번호를 입력하세요."
-        android:textColor="#000"
-        android:textSize="30dp"
-        android:ems="10"/>
-    <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="0.3"/>
+        android:textColor="#000000"
+        android:textSize="20dp"
+        android:ems="10"
+        android:gravity="center"/>
+
     <LinearLayout
         android:id="@+id/Sample_LinearLayout"
         android:layout_width="wrap_content"
@@ -32,7 +38,9 @@
         android:layout_gravity="center"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="30dp">
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -52,8 +60,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="#F2994a"
                 android:onClick="btn_Click"
-                android:text="Button" />
+                android:text="입력"
+                android:layout_marginLeft="5dp"
+                />
         </LinearLayout>
 
     </LinearLayout>

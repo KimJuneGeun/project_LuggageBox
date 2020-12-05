@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,11 +34,21 @@ public class detail_info extends AppCompatActivity implements OnMapReadyCallback
     private String location;
     private MapView mapView;
     private static NaverMap naverMap;
+    private ImageView btnBack;
     CameraPosition cameraPosition;
 //    CameraUpdate cameraUpdate;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_info);
+        //뒤로가기 기능
+        btnBack = (ImageView) findViewById(R.id.btn_back);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                onBackPressed();
+            }
+        });
 
 
     //    cameraPosition = new CameraPosition(new LatLng(35.14566748378248, 129.03686644241608),15,45,45);

@@ -15,18 +15,19 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="보 관 중"
+        android:text="맡겼던 짐 목록"
         android:textColor="#000000"
         android:textFontWeight="700"
         android:textSize="25dp"
         android:layout_marginTop="35dp"
         android:gravity="center_horizontal"/>
+
+
     <ListView
-        android:id="@+id/customlistview_instorage"
+        android:id="@+id/customlistview_past"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="100dp"
         />
-
 </RelativeLayout>

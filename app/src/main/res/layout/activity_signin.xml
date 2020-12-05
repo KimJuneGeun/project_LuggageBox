@@ -38,18 +38,5 @@
         android:maxHeight="70dp"
         android:scaleType="fitCenter"
         android:src="@drawable/kakao_login" />
-    <ImageButton
-        android:id="@+id/btn_custom_logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:adjustViewBounds="true"
-        android:background="@null"
-        android:baselineAlignBottom="false"
-        android:contentDescription="@string/kakaoLogo"
-        android:focusable="auto"
-        android:maxHeight="70dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/kakao_login" />
 
 </LinearLayout>

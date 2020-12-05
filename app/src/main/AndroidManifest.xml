@@ -54,6 +54,10 @@
         <activity android:name=".QRCodeScan"></activity>
         <activity android:name=".QRcodeCreate"></activity>
         <activity android:name=".myinfo"></activity>
+        <activity android:name=".past_list"></activity>
+        <activity android:name=".past_info"></activity>
+        <activity android:name=".manager_map"></activity>
+        <activity android:name=".Apply"></activity>
     </application>
 
 </manifest>
