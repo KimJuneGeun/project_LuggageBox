@@ -10,12 +10,17 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
 
 public class register extends AppCompatActivity implements View.OnClickListener{
@@ -27,6 +32,20 @@ public class register extends AppCompatActivity implements View.OnClickListener{
     EditText editTextDate4;
     String en_k, editDate, editDate2, editDate3, editDate4;
     RadioGroup en_size;
+    TextView address;
+    String address_name;
+    String status;
+    //Firebase
+    FirebaseFirestore mDatabase = FirebaseFirestore.getInstance();
+    //DB 변수
+    String bkind;
+    String bSzie;
+    String sDate;
+    String fData;
+    String sTime;
+    String fTime;
+
+
 
     Calendar myCalendar = Calendar.getInstance();
     Calendar myCalendar2 = Calendar.getInstance();
@@ -63,7 +82,11 @@ public class register extends AppCompatActivity implements View.OnClickListener{
         editTextDate2 = (EditText) findViewById(R.id.editTextDate2);
         editTextDate3 = (EditText) findViewById(R.id.editTextDate3);
         editTextDate4 = (EditText) findViewById(R.id.editTextDate4);
+        address = (TextView) findViewById(R.id.address);
 
+        Intent address_info = getIntent();
+        address_name = address_info.getExtras().getString("address");
+        address.setText(address_name);
         EditText et_Date = (EditText) findViewById(R.id.editTextDate);
         et_Date.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -178,7 +201,34 @@ public class register extends AppCompatActivity implements View.OnClickListener{
             register2_intent.putExtra("시작시간", editDate2);
             register2_intent.putExtra("끝날짜", editDate3);
             register2_intent.putExtra("끝시간", editDate4);
+            register2_intent.putExtra("Address",address_name);
+
+
+            // DB전송
+            inputData(en_k, rb_d, editDate, editDate2, editDate3, editDate4);
+            // 화면전환
+            register2_intent.putExtra("status",status);
             startActivity(register2_intent);
         }
+    }
+
+    private void inputData(String bkind, String bsize, String sData, String sTime, String fData, String fTime) {
+        HashMap lug_info = new HashMap<>();
+        lug_info.put("ID", SignIn.id);
+        lug_info.put("LugSize", bsize);
+        lug_info.put("LugTitle", bkind);
+        lug_info.put("ChkinDate", sData + " " + sTime);
+        lug_info.put("ChkoutDate", fData + " " + fTime);
+        lug_info.put("Address", address_name);
+        lug_info.put("status", 0);
+        status = "0";
+    //    lug_info.put("ID", SignIn.id);
+        mDatabase.collection("Luggagelist").document(SignIn.id+"")
+                .set(lug_info)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                });
     }
 }

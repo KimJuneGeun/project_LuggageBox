@@ -39,6 +39,7 @@ import com.naver.maps.map.MapFragment;
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
+import com.naver.maps.map.overlay.InfoWindow;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.Overlay;
 import com.naver.maps.map.util.FusedLocationSource;
@@ -71,6 +72,7 @@ public class Map extends AppCompatActivity implements NavigationView.OnNavigatio
     private NavigationView navigationView;
     private TextView textView;
     private View ImageView;
+    private InfoWindow mInfoWindow;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -129,6 +131,8 @@ public class Map extends AppCompatActivity implements NavigationView.OnNavigatio
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Marker marker = new Marker();
+                                String n = document.getId().toString();
+                                Log.d(TAG,n);
                                 String s = document.getData().toString();
                                 int idx = s.indexOf(",");
                                 String lng = s.substring(5,idx);
@@ -138,7 +142,7 @@ public class Map extends AppCompatActivity implements NavigationView.OnNavigatio
                                 double lati = Double.parseDouble(lat);
                                 double lngi = Double.parseDouble(lng);
                                 marker.setPosition(new LatLng(lati,lngi));
-
+                                marker.setTag(n);
                                 markers.add(marker);
 
                                 Log.d(TAG,"마커 저장");
@@ -160,6 +164,7 @@ public class Map extends AppCompatActivity implements NavigationView.OnNavigatio
     //네이버 지도
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
+//        mInfoWindow = new InfoWindow();
         cpNaverMap = naverMap;
         Log.d( TAG, "onMapReady");
         marker(naverMap);
@@ -176,6 +181,16 @@ public class Map extends AppCompatActivity implements NavigationView.OnNavigatio
     @Override
     public boolean onClick(@NonNull Overlay overlay) {
         if (overlay instanceof Marker) {
+            Marker marker = (Marker) overlay;
+            Log.d(TAG,marker.getTag().toString());
+//            if (marker.getInfoWindow() != null) {
+//                mInfoWindow.close();
+//                Toast.makeText(this.getApplicationContext(), "InfoWindow Close.", Toast.LENGTH_LONG).show();
+//            }
+//            else {
+//                mInfoWindow.open(marker);
+//                Toast.makeText(this.getApplicationContext(), "InfoWindow Open.", Toast.LENGTH_LONG).show();
+//            }
             Toast.makeText(this.getApplicationContext(), "마커가 선택되었습니다", Toast.LENGTH_LONG).show();
             return true;
         }

@@ -44,6 +44,7 @@
                 android:text="location" />
 
             <TextView
+                android:id="@+id/address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="동의대학교 지천관 (주소)" />

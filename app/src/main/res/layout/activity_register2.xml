@@ -16,9 +16,9 @@
         android:padding="10dp"/>
 
     <TextView
+        android:id="@+id/status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="현재상태: 승인"
         android:layout_marginLeft="20dp"
         android:textSize="18dp"/>
     <LinearLayout
@@ -49,9 +49,9 @@
                 android:text="location" />
 
             <TextView
+                android:id="@+id/address"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="동의대학교 지천관 (주소)" />
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 

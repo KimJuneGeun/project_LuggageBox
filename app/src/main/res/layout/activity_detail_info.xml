@@ -54,6 +54,7 @@
             />
 
         <TextView
+            android:id="@+id/locationName"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:text="동의대학교 가야캠퍼스 지천관"

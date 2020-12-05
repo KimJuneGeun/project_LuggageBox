@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ import com.naver.maps.map.MapFragment;
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
+import com.naver.maps.map.overlay.InfoWindow;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.Overlay;
 import com.naver.maps.map.util.FusedLocationSource;
@@ -35,6 +37,9 @@ public class detail_info extends AppCompatActivity implements OnMapReadyCallback
     private MapView mapView;
     private static NaverMap naverMap;
     private ImageView btnBack;
+    private InfoWindow mInfoWindow;
+    private TextView locationName;
+    private String address;
     CameraPosition cameraPosition;
 //    CameraUpdate cameraUpdate;
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +59,7 @@ public class detail_info extends AppCompatActivity implements OnMapReadyCallback
     //    cameraPosition = new CameraPosition(new LatLng(35.14566748378248, 129.03686644241608),15,45,45);
         Intent loc_info = getIntent();
         location = loc_info.getExtras().getString("location");
-
+        locationName = (TextView) findViewById(R.id.locationName);
         Button btn = (Button) findViewById(R.id.btn_call);
         Button btn1 = (Button) findViewById(R.id.btn_chat);
 
@@ -74,6 +79,7 @@ public class detail_info extends AppCompatActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
                 Intent goNextActivity = new Intent(getApplicationContext(), register.class);
+                goNextActivity.putExtra("address",address);
                 startActivity(goNextActivity);
             }
         });
@@ -101,6 +107,18 @@ public class detail_info extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public boolean onClick(@NonNull Overlay overlay) {
         if (overlay instanceof Marker) {
+            Marker marker = (Marker) overlay;
+            address = marker.getTag().toString();
+            Log.d(TAG,address);
+            locationName.setText(address);
+//            if (marker.getInfoWindow() != null) {
+//                mInfoWindow.close();
+//                Toast.makeText(this.getApplicationContext(), "InfoWindow Close.", Toast.LENGTH_LONG).show();
+//            }
+//            else {
+//                mInfoWindow.open(marker);
+//                Toast.makeText(this.getApplicationContext(), "InfoWindow Open.", Toast.LENGTH_LONG).show();
+//            }
             Toast.makeText(this.getApplicationContext(), "마커가 선택되었습니다", Toast.LENGTH_LONG).show();
             return true;
         }
@@ -109,23 +127,26 @@ public class detail_info extends AppCompatActivity implements OnMapReadyCallback
     //네이버 지도
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
+        mInfoWindow = new InfoWindow();
         if(location.contains("동의대학교")) {
             Log.d(TAG, "동의대학교 입력됨");
-            cameraPosition = new CameraPosition(new LatLng(35.14555605664081, 129.03623986986486),15,45,45);
+            cameraPosition = new CameraPosition(new LatLng(35.138703, 129.031158),15,45,45);
             naverMap.setCameraPosition(cameraPosition);
         }
         else if(location.contains("부산역")){
             Log.d(TAG, "부산역 입력됨");
-            cameraPosition = new CameraPosition(new LatLng(35.1133916,129.0380028),15,45,45);
+            cameraPosition = new CameraPosition(new LatLng(35.113347, 129.037271),17,45,45);
             naverMap.setCameraPosition(cameraPosition);
         }
         else {
-            Log.d(TAG, "아무거나 입력됨");
-            cameraPosition = new CameraPosition(new LatLng(35.1133916,129.0380028),15,45,45);
+            Log.d(TAG, "서울역 입력됨");
+            cameraPosition = new CameraPosition(new LatLng(37.553022, 126.971955),18,45,45);
             naverMap.setCameraPosition(cameraPosition);
         }
         for(Marker m : markers) {
             m.setMap(naverMap);
+            m.setOnClickListener(this);
+
         }
      //   CameraPosition cameraPosition = new CameraPosition(new LatLng(35.14566748378248, 129.03686644241608),15,45,45);
 //        naverMap.setLayerGroupEnabled(naverMap.LAYER_GROUP_BUILDING, true);

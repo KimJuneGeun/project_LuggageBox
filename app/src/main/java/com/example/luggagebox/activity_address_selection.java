@@ -1,6 +1,7 @@
 package com.example.luggagebox;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.naver.maps.map.NaverMap;
@@ -21,13 +23,22 @@ public class activity_address_selection extends AppCompatActivity {
     private Button btnAdd;
     private EditText et;
     private ImageView btnBack;
-
+    private AlertDialog.Builder builder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adress_selection);
         btnAdd = (Button) findViewById(R.id.btnAdd);
         btnBack = (ImageView) findViewById(R.id.btn_back);
+        builder = new AlertDialog.Builder(activity_address_selection.this);
+        builder.setTitle("알림");
+        builder.setMessage("내용을 입력하세요");
+        builder.setNegativeButton("확인", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,10 +98,16 @@ public class activity_address_selection extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-
-                Intent detail_intent=new Intent(activity_address_selection.this,detail_info.class);
-                detail_intent.putExtra("location",et.getText().toString());
-                startActivity(detail_intent);
+                if(et.getText().toString().equals("")) {
+                    // 알림창 생성 및 실행
+                    AlertDialog alertD = builder.create();
+                    alertD.show();
+                }
+                else {
+                    Intent detail_intent = new Intent(activity_address_selection.this, detail_info.class);
+                    detail_intent.putExtra("location", et.getText().toString());
+                    startActivity(detail_intent);
+                }
             }
         });
     }
