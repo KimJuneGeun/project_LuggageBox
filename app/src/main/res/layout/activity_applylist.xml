@@ -17,7 +17,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="35dp"
         android:gravity="center_horizontal"
-        android:text="신청 내역"
+        android:text="@string/apply"
         android:textColor="#000000"
         android:textFontWeight="700"
         android:textSize="25dp" />
@@ -34,7 +34,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="예약 대기"
+        android:text="@string/waiting"
         android:textColor="#000000"
         android:textFontWeight="700"
         android:textSize="25dp"
@@ -62,7 +62,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="예약 완료"
+        android:text="@string/apply_complete"
         android:textColor="#000000"
         android:textFontWeight="700"
         android:textSize="25dp"
@@ -89,7 +89,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="보 관 중"
+        android:text="@string/instorage"
         android:textColor="#000000"
         android:textFontWeight="700"
         android:textSize="25dp"
@@ -117,7 +117,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="거래 완료"
+        android:text="@string/deal_complete"
         android:textColor="#000000"
         android:textFontWeight="700"
         android:textSize="25dp"

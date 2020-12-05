@@ -19,8 +19,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.naver.maps.geometry.LatLng;
-import com.naver.maps.map.overlay.Marker;
 
 public class register2 extends Activity {
     String TAG = "출력";

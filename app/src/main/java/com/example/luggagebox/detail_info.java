@@ -12,13 +12,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
 
 import com.naver.maps.geometry.LatLng;
-import com.naver.maps.map.CameraAnimation;
 import com.naver.maps.map.CameraPosition;
-import com.naver.maps.map.CameraUpdate;
 import com.naver.maps.map.MapFragment;
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
@@ -26,7 +23,6 @@ import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.overlay.InfoWindow;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.Overlay;
-import com.naver.maps.map.util.FusedLocationSource;
 
 import static com.example.luggagebox.Map.markers;
 

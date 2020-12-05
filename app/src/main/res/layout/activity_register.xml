@@ -8,6 +8,10 @@
     android:clickable="false"
     android:orientation="vertical"
     tools:context=".register">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        />
 
     <TextView
         android:layout_width="match_parent"

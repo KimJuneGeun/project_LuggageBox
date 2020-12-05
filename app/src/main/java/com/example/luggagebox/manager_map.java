@@ -1,6 +1,7 @@
 package com.example.luggagebox;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
@@ -50,6 +52,32 @@ public class manager_map extends AppCompatActivity implements NavigationView.OnN
     public void btn_menu(View view) {
         if (view.getId() == R.id.btn_menu) {  // Buttoon의 ID를 찾아서 실행이 된다.
             drawerLayout.openDrawer(navigationView);
+
+            // Add - 프로필 추가
+            // 개인 프로필 정보 넣을 수 있는 위치 지정
+            navigationView.setNavigationItemSelectedListener(this);
+            View header = navigationView.getHeaderView(0);
+
+            // 프로필 정보 - 이름값 갱신
+            TextView tv_username = (TextView) header.findViewById(R.id.textview_username);
+            tv_username.setText(SignIn.name);
+
+            // 프로필 정보 - 이메일값 갱신
+            TextView tv_email = (TextView) header.findViewById(R.id.textview_email);
+            tv_email.setText(SignIn.Email);
+
+            // 프로필 정보 - 사진 갱신
+            ImageView iv_photo = (ImageView) header.findViewById(R.id.ImageView_Photo);
+
+            // Add - 사진이 없을 경우 기본 이미지 출력
+            if(SignIn.MyImageLink == null) {
+                Drawable drawable = getResources().getDrawable(R.drawable.user);
+                iv_photo.setImageDrawable(drawable);
+            }
+
+            else {
+                Glide.with(this).load(SignIn.MyImageLink).circleCrop().into(iv_photo);
+            }
         }
     }
     public void btn_address (View view){

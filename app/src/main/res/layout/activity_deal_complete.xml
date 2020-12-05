@@ -15,7 +15,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="거래 완료"
+        android:text="@string/deal_complete"
         android:textColor="#000000"
         android:textFontWeight="700"
         android:textSize="25dp"

@@ -16,8 +16,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.naver.maps.map.NaverMap;
-
 public class activity_address_selection extends AppCompatActivity {
 
     private Button btnAdd;

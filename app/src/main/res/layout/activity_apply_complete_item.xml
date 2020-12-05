@@ -14,7 +14,7 @@
         android:id="@+id/Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="임도헌"
+        android:text="@string/apply_list_name"
         android:textColor="#000000"
         android:textSize="20dp"
         android:layout_marginTop="40dp"
@@ -54,7 +54,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="짐 종류 :"
+        android:text="@string/apply_list_kind"
         android:textColor="#000000"
         android:textSize="15dp"
         android:layout_marginTop="80dp"
@@ -64,7 +64,7 @@
         android:id="@+id/Kinds"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="캐리어"
+        android:text="@string/apply_list_kinds_input"
         android:textColor="#000000"
         android:textSize="15dp"
         android:layout_marginTop="80dp"
@@ -74,7 +74,7 @@
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="짐 크기 :"
+        android:text="@string/apply_list_size"
         android:textColor="#000000"
         android:textSize="15dp"
         android:layout_marginTop="100dp"
@@ -84,7 +84,7 @@
         android:id="@+id/Size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MIDDLE"
+        android:text="@string/apply_list_size_input"
         android:textColor="#000000"
         android:textSize="15dp"
         android:layout_marginTop="100dp"
@@ -94,7 +94,7 @@
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="시작하는 날짜/시간 :"
+        android:text="@string/apply_list_startTime"
         android:textColor="#000000"
         android:textSize="15dp"
         android:layout_marginTop="120dp"
@@ -104,7 +104,7 @@
         android:id="@+id/StartTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="2020.10.27 15:00"
+        android:text="@string/apply_list_startTime_input"
         android:textColor="#000000"
         android:textSize="15dp"
         android:layout_marginTop="120dp"
@@ -114,7 +114,7 @@
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="찾아가는 예상 날짜/시간 :"
+        android:text="@string/apply_list_EndTime"
         android:textColor="#000000"
         android:textSize="15dp"
         android:layout_marginTop="140dp"
@@ -124,10 +124,10 @@
         android:id="@+id/EndTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="2020.10.28 15:00"
+        android:text="@string/apply_list_EndTime_input"
         android:textColor="#000000"
         android:textSize="15dp"
         android:layout_marginTop="140dp"
-        android:layout_marginLeft="220dp"/>
+        android:layout_marginLeft="190dp"/>
 
 </RelativeLayout>

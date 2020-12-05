@@ -12,16 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -31,7 +23,6 @@ import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
-import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.kakao.usermgmt.callback.MeV2ResponseCallback;
 import com.kakao.usermgmt.response.MeV2Response;
 import com.kakao.usermgmt.response.model.Profile;
@@ -40,8 +31,6 @@ import com.kakao.util.OptionalBoolean;
 import com.kakao.util.exception.KakaoException;
 
 import java.util.HashMap;
-
-import static androidx.core.content.ContextCompat.startActivity;
 
 public class SignIn extends AppCompatActivity {
     String Tag = "로그";
@@ -282,7 +271,7 @@ public class SignIn extends AppCompatActivity {
         }
         private void redirectPhoneActivity(long id, String name) {
 
-            Intent intent = new Intent(SignIn.this,PhoneActivity.class);
+            Intent intent = new Intent(SignIn.this, PhoneActivity.class);
             intent.putExtra("id",id);
             intent.putExtra("name",name);
             startActivity(intent);

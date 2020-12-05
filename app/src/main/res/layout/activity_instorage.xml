@@ -15,7 +15,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="보 관 중"
+        android:text="@string/instorage"
         android:textColor="#000000"
         android:textFontWeight="700"
         android:textSize="25dp"

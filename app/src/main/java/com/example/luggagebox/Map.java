@@ -3,9 +3,8 @@ package com.example.luggagebox;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.bumptech.glide.Glide;
@@ -32,11 +30,9 @@ import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraAnimation;
-import com.naver.maps.map.CameraPosition;
 import com.naver.maps.map.CameraUpdate;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapFragment;
-import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.overlay.InfoWindow;
@@ -46,7 +42,6 @@ import com.naver.maps.map.util.FusedLocationSource;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executor;
 
 public class Map extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, Overlay.OnClickListener {
     private String TAG = "출력";
@@ -270,7 +265,16 @@ public class Map extends AppCompatActivity implements NavigationView.OnNavigatio
 
             // 프로필 정보 - 사진 갱신
             ImageView iv_photo = (ImageView) header.findViewById(R.id.ImageView_Photo);
-            Glide.with(this).load(SignIn.MyImageLink).circleCrop().into(iv_photo);
+
+            // Add - 사진이 없을 경우 기본 이미지 출력
+            if(SignIn.MyImageLink == null) {
+                Drawable drawable = getResources().getDrawable(R.drawable.user);
+                iv_photo.setImageDrawable(drawable);
+            }
+
+            else {
+                Glide.with(this).load(SignIn.MyImageLink).circleCrop().into(iv_photo);
+            }
 
         }
 

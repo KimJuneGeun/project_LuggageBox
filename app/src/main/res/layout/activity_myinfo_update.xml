@@ -21,7 +21,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="내정보"
+            android:text="@string/myinfo"
             android:textColor="#000000"
             android:textFontWeight="700"
             android:textSize="25dp"

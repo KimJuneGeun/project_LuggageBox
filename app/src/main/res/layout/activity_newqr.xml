@@ -16,7 +16,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="QR 코드 인식"
+        android:text="@string/Qrcodescreate"
         android:textColor="#FFFFFF"
         android:textFontWeight="700"
         android:textSize="25dp"
