@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -56,10 +57,9 @@ public class SignIn extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
-        chk = 1;
         btn_custom_login = (ImageButton) findViewById(R.id.btn_custom_login);
         btn_custom_logout = (ImageButton) findViewById(R.id.btn_custom_logout);
-
+        chk =1;
         // Firebase
       //  mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -186,9 +186,11 @@ public class SignIn extends AppCompatActivity {
                                     // 프로필 획득 불가
                                 }
 
-                                saveDB(result.getId(), profile.getNickname(), email);
+                              //  saveDB(result.getId(), profile.getNickname(), email);
                               //  print();
                                 //redirectHomeActivity();
+                             //   inputData(result.getId(), profile.getNickname(), email);
+                                saveDB(result.getId(), profile.getNickname(), email);
                             }
                         }
                     });
@@ -203,34 +205,18 @@ public class SignIn extends AppCompatActivity {
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
-                                    if(document.contains(Long.toString(id))) {
-                                        chk=0;
-                                        redirectHomeActivity();
+                                    if(document.getId().equals(Long.toString(id))) {
+                                        Log.d(TAG,"있다.");
+                                        chk = -1;
+                                        break;
 
                                     }
-//                                    if(true) {
-//                                        Log.d(TAG, document.getId() + " => " + document.getData().containsValue("isTel"));
-//                                    }
-                                 //   Log.d(TAG, document.getId() + " => " + document.getData().containsValue("isTel"));
                                 }
-                                if(chk == 1) {
-                                    HashMap user = new HashMap<>();
-                                    user.put("ID", id);
-                                    user.put("name", name);
-                                    user.put("email", email);
-                                    user.put("Tel", "");
-                                    user.put("isTel", false);
-                                    user.put("isMGR", false);
-                                    mDatabase.collection("UserProfile")
-                                            .document(id + "")
-                                            .set(user)
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void aVoid) {
-                                                }
-                                            });
-                                    redirectPhoneActivity(id, name);
-                               //     Log.d(TAG, document.getId() + " => " + document.getData().containsValue("isTel"));
+                                if(chk == -1) {
+                                    redirectHomeActivity();
+                                }
+                                else {
+                                    inputData(id,name,email);
                                 }
                             } else {
                                 Log.w(TAG, "Error getting documents.", task.getException());
@@ -240,6 +226,23 @@ public class SignIn extends AppCompatActivity {
 
 
 
+        }
+        private void inputData(long id, String name, String email) {
+            HashMap user = new HashMap<>();
+            user.put("ID", id);
+            user.put("name", name);
+            user.put("email", email);
+            user.put("Tel", "");
+            user.put("isTel", false);
+            user.put("isMGR", false);
+            mDatabase.collection("UserProfile").document(id+"")
+                    .set(user)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                        }
+                    });
+             redirectPhoneActivity(id, name);
         }
         private void redirectHomeActivity() {
             startActivity(new Intent(SignIn.this, Map.class));
