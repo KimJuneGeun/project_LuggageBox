@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/addressView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/search_string"
+        android:textColor="#000000"
+        android:textFontWeight="700"
+        android:textSize="25dp"
+        android:layout_marginTop="35dp"
+        android:gravity="center_horizontal"
+
+        />
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/nav_btn_back"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="5dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/round_shape">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="190dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/ic_gesture" />
+
+        <EditText
+            android:id="@+id/edtItem"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="80dp"
+            android:drawableLeft="@drawable/shape_search"
+            />
+
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="350dp"
+            android:layout_marginTop="80dp"
+            android:background="@color/orange"
+            android:text="@string/btn_ok"
+            android:textSize="10dp"
+            android:textColor="#FFFFFF"
+            android:onClick="btn_detail_info"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="160dp"
+            android:layout_marginTop="150dp"
+            android:src="@drawable/tabs" />
+
+
+        <ListView
+            android:id="@+id/customlistview_adress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="220dp"
+            />
+    </RelativeLayout>
+</RelativeLayout>

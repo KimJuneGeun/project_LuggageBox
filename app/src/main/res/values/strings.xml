@@ -4,4 +4,11 @@
     <string name="kakao_app_key">dfc2430c2e2a142ba0a3f4b9f825ebd2</string>
     <string name="logoImage">logo</string>
     <string name="kakaoLogo">kakao</string>
+    <string name="title">현재 맡긴 짐</string>
+    <string name="search_string">위치 검색</string>
+    <string name="detail_string">상세 정보</string>
+    <string name="btn_ok">OK</string>
+    <string name="Toast_add">추가되었습니다.</string>
+    <string name="Toast_delete">삭제되었습니다.</string>
+    <string name="nav_logout"><u>로그아웃</u></string>
 </resources>

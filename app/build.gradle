@@ -34,8 +34,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     // 카카오 로그인
     implementation group: 'com.kakao.sdk', name: 'usermgmt', version: '1.30.2'
-    // Naver 지도 SDK
+    // Naver 지도
     implementation 'com.naver.maps:map-sdk:3.10.0'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
     // NavigationView
     implementation 'com.google.android.material:material:1.0.0'
 
@@ -44,4 +45,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:21.4.0'
     implementation 'com.google.firebase:firebase-database:19.2.1'
 
+    //QR
+    implementation 'com.google.android.gms:play-services-vision:11.6.2'//구글 모바일 비전 API 사용(QR코드)
+    // Zxing바코드 라이브러리
+    implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
 }

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#CC3E4958">
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/nav_btn_back"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="5dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="QR 코드 인식"
+        android:textColor="#FFFFFF"
+        android:textFontWeight="700"
+        android:textSize="25dp"
+        android:layout_marginTop="35dp"
+        android:gravity="center_horizontal"/>
+
+    <ImageView
+        android:layout_width="330dp"
+        android:layout_height="330dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="40dp"
+        android:src="@drawable/constrains" />
+
+    <ImageView
+        android:src="@drawable/img_barcode"
+        android:id="@+id/img_barcode"
+        android:layout_width="330dp"
+        android:layout_height="330dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="40dp"
+        />
+</RelativeLayout>
