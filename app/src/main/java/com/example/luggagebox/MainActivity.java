@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 //        Intent intent = new Intent(this, Map.class);
 //        startActivity(intent);
 
-        Intent intent = new Intent(this, Map.class);
+        Intent intent = new Intent(this, LoadingActivity.class);
         startActivity(intent);
 
 

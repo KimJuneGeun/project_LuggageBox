@@ -54,8 +54,10 @@ public class Map extends AppCompatActivity implements NavigationView.OnNavigatio
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION
     };
+
     //마커
-    List<Marker> markers = new ArrayList<>();
+    static List<Marker> markers = new ArrayList<>();
+
     CameraUpdate cameraUpdate = CameraUpdate.scrollTo(new LatLng(35.1133916, 129.0380028)).animate(CameraAnimation.Easing);
     //DB
     FirebaseFirestore mDatabase = FirebaseFirestore.getInstance();
@@ -71,6 +73,7 @@ public class Map extends AppCompatActivity implements NavigationView.OnNavigatio
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
         // 현재위치 네이버 지도 객체 생성
         FragmentManager fm = getSupportFragmentManager();
         MapFragment mapFragment = (MapFragment)fm.findFragmentById(R.id.map_view);
@@ -79,7 +82,13 @@ public class Map extends AppCompatActivity implements NavigationView.OnNavigatio
             fm.beginTransaction().add(R.id.map_view, mapFragment).commit();
         }
 
-
+//        Intent location_info = getIntent();
+//        loc_info = location_info.getExtras().getString("location");
+//        if(loc_info != null) {
+//            cpNaverMap.setMinZoom(17.0);
+//            cpNaverMap.setMaxZoom(18.0);
+//            cpNaverMap.moveCamera(cameraUpdate);
+//        }
         // getMapAsync를 호출하여 비동기로 onMapReady 콜백 메서드 호출
         // onMapReady에서 NaverMap 객체를 받음
         mapFragment.getMapAsync(this);
@@ -115,7 +124,9 @@ public class Map extends AppCompatActivity implements NavigationView.OnNavigatio
                                 double lati = Double.parseDouble(lat);
                                 double lngi = Double.parseDouble(lng);
                                 marker.setPosition(new LatLng(lati,lngi));
+
                                 markers.add(marker);
+
                                 Log.d(TAG,"마커 저장");
 //                                Log.d(TAG,lati);
 //                                Log.d(TAG,lng);
@@ -125,9 +136,28 @@ public class Map extends AppCompatActivity implements NavigationView.OnNavigatio
                         }
                         for(Marker m : markers) {
                             m.setMap(naverMap);
+
                         }
                     }
                 });
+
+    }
+
+    //네이버 지도
+    @Override
+    public void onMapReady(@NonNull NaverMap naverMap) {
+        cpNaverMap = naverMap;
+        Log.d( TAG, "onMapReady");
+        marker(naverMap);
+        for(Marker m : markers) {
+            m.setOnClickListener(this);
+        }
+        mNaverMap = naverMap;
+        mNaverMap.setLocationSource(mLocationSource);
+        // 권한확인. 결과는 onRequestPermissionsResult 콜백 매서드 호출
+        ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_REQUEST_CODE);
+
+
     }
     @Override
     public boolean onClick(@NonNull Overlay overlay) {
@@ -136,19 +166,6 @@ public class Map extends AppCompatActivity implements NavigationView.OnNavigatio
             return true;
         }
         return false;
-    }
-    //네이버 지도
-    @Override
-    public void onMapReady(@NonNull NaverMap naverMap) {
-        cpNaverMap = naverMap;
-        Log.d( TAG, "onMapReady");
-        marker(naverMap);
-        mNaverMap = naverMap;
-        mNaverMap.setLocationSource(mLocationSource);
-        // 권한확인. 결과는 onRequestPermissionsResult 콜백 매서드 호출
-        ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_REQUEST_CODE);
-
-
     }
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -214,13 +231,23 @@ public class Map extends AppCompatActivity implements NavigationView.OnNavigatio
 
     }
     public void btn_address (View view){
+        CameraUpdate cameraUpdate = CameraUpdate.scrollTo(new LatLng(35.1133916, 129.0380028)).animate(CameraAnimation.Easing);
         ImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent Adress_intent = new Intent(Map.this, activity_address_selection.class);
                 startActivity(Adress_intent);
+
             }
         });
+
+//        Intent location_info = getIntent();
+//        loc_info = location_info.getExtras().getString("location");
+//        if(loc_info != null) {
+//            cpNaverMap.setMinZoom(17.0);
+//            cpNaverMap.setMaxZoom(18.0);
+//            cpNaverMap.moveCamera(cameraUpdate);
+//        }
     }
     // 네비게이션 아이템 스위쳐
     @Override

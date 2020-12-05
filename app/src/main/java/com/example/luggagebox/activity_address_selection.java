@@ -13,9 +13,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.naver.maps.map.NaverMap;
+
 public class activity_address_selection extends AppCompatActivity {
 
     private Button btnAdd;
+    private EditText et;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +29,7 @@ public class activity_address_selection extends AppCompatActivity {
         final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
         // Focus가 맞처진 EditText //
-        final EditText et = (EditText)  findViewById(R.id.edtItem) ;
+        et = (EditText)  findViewById(R.id.edtItem) ;
 
 
         //리스트뷰 선언
@@ -74,7 +77,9 @@ public class activity_address_selection extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+
                 Intent detail_intent=new Intent(activity_address_selection.this,detail_info.class);
+                detail_intent.putExtra("location",et.getText().toString());
                 startActivity(detail_intent);
             }
         });
