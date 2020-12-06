@@ -1,10 +1,14 @@
 package com.example.luggagebox;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -36,6 +40,41 @@ public class instorageAdapter extends BaseAdapter {
         TextView SizeTextView = (TextView) convertView.findViewById(R.id.Size) ;
         TextView StartTimeTextView = (TextView) convertView.findViewById(R.id.StartTime) ;
         TextView EndTimeTextView = (TextView) convertView.findViewById(R.id.EndTime) ;
+
+        // 전화 버튼 클릭시 다이얼 이동
+        ImageView call = (ImageView) convertView.findViewById(R.id.call);
+        call.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                Intent call = new Intent();
+                call.setAction(Intent.ACTION_DIAL);
+                call.setData(Uri.parse("tel:01046302904"));
+                //Intent intent = new Intent(Intent.ACTION_CALL,Uri.parse("tel:12345"));
+                context.startActivity(call);
+            }
+        });
+
+        //메시지 이동
+        ImageView chat = (ImageView) convertView.findViewById(R.id.message);
+        chat.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Uri uri = Uri.parse("smsto:01046302904");
+                Intent chat = new Intent(Intent.ACTION_SENDTO, uri);
+                context.startActivity(chat);
+            }
+        });
+
+        //qr 스캔 화면
+        ImageView qr = (ImageView) convertView.findViewById(R.id.QRCode);
+
+        qr.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(context.getApplicationContext(), QRCodeScan.class);
+                context.startActivity(intent);
+
+            }
+
+        });
+
 
 
         ApplyList listViewItem = listViewItemList.get(position);

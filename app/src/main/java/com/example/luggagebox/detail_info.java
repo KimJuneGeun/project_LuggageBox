@@ -14,6 +14,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraPosition;
 import com.naver.maps.map.MapFragment;
@@ -35,9 +40,19 @@ public class detail_info extends AppCompatActivity implements OnMapReadyCallback
     private ImageView btnBack;
     private InfoWindow mInfoWindow;
     private TextView locationName;
-    private String address;
+
+    // ChangeJ - Private > static
+    static String address;
+
     CameraPosition cameraPosition;
 //    CameraUpdate cameraUpdate;
+
+    // Add - Firebase
+    static String TestNumber = "";
+    FirebaseFirestore mDatabase = FirebaseFirestore.getInstance();
+    private String TAG1 = "상세정보 출력";
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_info);
@@ -85,7 +100,8 @@ public class detail_info extends AppCompatActivity implements OnMapReadyCallback
             public void onClick(View view) {
                 Intent call = new Intent();
                 call.setAction(Intent.ACTION_DIAL);
-                call.setData(Uri.parse("tel:12345"));
+                getTel();
+                call.setData(Uri.parse("tel:"+TestNumber));
                 //Intent intent = new Intent(Intent.ACTION_CALL,Uri.parse("tel:12345"));
                 startActivity(call);
             }
@@ -93,7 +109,8 @@ public class detail_info extends AppCompatActivity implements OnMapReadyCallback
         // 메시지 아이콘 클릭시 메시지 연결
         btn1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Uri uri = Uri.parse("smsto:01046302904");
+                getTel();
+                Uri uri = Uri.parse("smsto:"+TestNumber);
                 Intent chat = new Intent(Intent.ACTION_SENDTO, uri);
                 startActivity(chat);
             }
@@ -161,5 +178,27 @@ public class detail_info extends AppCompatActivity implements OnMapReadyCallback
 //        naverMap.setMaxZoom(18.0);
 //        naverMap.moveCamera(cameraUpdate);
 //        naverMap.setCameraPosition(cameraPosition);
+    }
+
+    private void getTel(){
+        mDatabase.collection("UserProfile").whereEqualTo("MGRAddress", address)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String Test1 = document.getData().toString();
+
+                               String[] Test2 = Test1.split(",");
+                               String Test3 = Test2[2];
+                               TestNumber = Test3.substring(5);
+                                //System.out.println(TestNumber);
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                    }
+                });
     }
 }

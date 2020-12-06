@@ -3,6 +3,7 @@ package com.example.luggagebox;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,7 +16,12 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
 
@@ -25,6 +31,11 @@ public class manager_map extends AppCompatActivity implements NavigationView.OnN
     private NavigationView navigationView;
     private TextView textView;
     private View ImageView;
+
+    // Add - Firebase
+    static String TestMGRAddress = "";
+    FirebaseFirestore mDatabase = FirebaseFirestore.getInstance();
+    private String TAG = "MGRMap 출력";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +59,7 @@ public class manager_map extends AppCompatActivity implements NavigationView.OnN
                 finish();
             }
         });
+        getMGRAddress();
     }
     public void btn_menu(View view) {
         if (view.getId() == R.id.btn_menu) {  // Buttoon의 ID를 찾아서 실행이 된다.
@@ -60,7 +72,7 @@ public class manager_map extends AppCompatActivity implements NavigationView.OnN
 
             // 프로필 정보 - 이름값 갱신
             TextView tv_username = (TextView) header.findViewById(R.id.textview_username);
-            tv_username.setText(SignIn.name);
+            tv_username.setText(TestMGRAddress);
 
             // 프로필 정보 - 이메일값 갱신
             TextView tv_email = (TextView) header.findViewById(R.id.textview_email);
@@ -117,5 +129,28 @@ public class manager_map extends AppCompatActivity implements NavigationView.OnN
         menuItem.setChecked(true);
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    // AddJ - 주소 가져오기
+    private void getMGRAddress(){
+        mDatabase.collection("UserProfile").whereEqualTo("ID", Long.parseLong(SignIn.id))
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String Test1 = document.getData().toString();
+
+                                String[] Test2 = Test1.split(",");
+                                String Test3 = Test2[5];
+                                TestMGRAddress = Test3.substring(12);
+                                Log.d(TAG, TestMGRAddress);
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                    }
+                });
     }
 }

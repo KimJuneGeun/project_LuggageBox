@@ -2,17 +2,13 @@ package com.example.luggagebox;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,7 +21,6 @@ public class register2 extends Activity {
     Button qrButton;
     //DB
     FirebaseFirestore mDatabase = FirebaseFirestore.getInstance();
-    private final static int CAMERA_PERMISSIONS_GRANTED = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +68,6 @@ public class register2 extends Activity {
         }
         qrButton = (Button)findViewById(R.id.btn_QRcode);   // Button Boilerplate
 
-        getCameraPermission();
 
         // 다음 Activity로 넘어가기 위한 onClickListener
         // 이렇게 한 이유는 Permission Check 가
@@ -89,24 +83,6 @@ public class register2 extends Activity {
         });
     }
 
-    private boolean getCameraPermission() {
-        if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        } else {
-            // 권한이 왜 필요한지 설명이 필요한가?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    android.Manifest.permission.CAMERA)) {
-                Toast.makeText(this, "카메라 사용을 위해 확인버튼을 눌러주세요!", Toast.LENGTH_SHORT).show();
-                return true;
-            } else {
-                // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(this,
-                        new String[]{android.Manifest.permission.CAMERA},
-                        CAMERA_PERMISSIONS_GRANTED);
-                return true;
-            }
-        }
-    }
 
     private void CheckStatus() {
 

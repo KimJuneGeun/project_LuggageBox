@@ -36,13 +36,6 @@ android:layout_marginTop="40dp"
 android:layout_marginLeft="170dp"
 android:src="@drawable/ic_mail" />
 
-<ImageView
-    android:id="@+id/QRCode"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:layout_marginTop="40dp"
-android:layout_marginLeft="210dp"
-android:src="@drawable/qr_code" />
 
 <ImageView
     android:id="@+id/ok"

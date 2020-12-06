@@ -53,6 +53,10 @@ public class Map extends AppCompatActivity implements NavigationView.OnNavigatio
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION
     };
+    
+    // AddJ - Firebase
+    static String TestPerm = "";
+    FirebaseFirestore mDatabase1 = FirebaseFirestore.getInstance();
 
     //마커
     static List<Marker> markers = new ArrayList<>();
@@ -81,16 +85,6 @@ public class Map extends AppCompatActivity implements NavigationView.OnNavigatio
             mapFragment = MapFragment.newInstance();
             fm.beginTransaction().add(R.id.map_view, mapFragment).commit();
         }
-
-//        Intent location_info = getIntent();
-//        loc_info = location_info.getExtras().getString("location");
-//        if(loc_info != null) {
-//            cpNaverMap.setMinZoom(17.0);
-//            cpNaverMap.setMaxZoom(18.0);
-//            cpNaverMap.moveCamera(cameraUpdate);
-//        }
-        // getMapAsync를 호출하여 비동기로 onMapReady 콜백 메서드 호출
-        // onMapReady에서 NaverMap 객체를 받음
         mapFragment.getMapAsync(this);
 
         // 위치를 반환하는 구현체인 FusedLocationSource 생성
@@ -109,9 +103,16 @@ public class Map extends AppCompatActivity implements NavigationView.OnNavigatio
         Btn_manager.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent manager = new Intent(Map.this, manager_map.class);
-                startActivity(manager);
-                finish();
+                // Add - 권한 없으면 오류 메시지 출력
+                if(TestPerm.equals("false")){
+                    Toast.makeText(getApplicationContext(), "관리자가 아닙니다.", Toast.LENGTH_SHORT).show();
+                }
+
+                else{
+                    Intent manager = new Intent(Map.this, manager_map.class);
+                    startActivity(manager);
+                    finish();
+                }
             }
         });
     }
@@ -246,7 +247,9 @@ public class Map extends AppCompatActivity implements NavigationView.OnNavigatio
     // 네비게이션 메뉴 버튼
     public void btn_menu(View view) {
         if (view.getId() == R.id.btn_menu) {  // Buttoon의 ID를 찾아서 실행이 된다.
-           drawerLayout.openDrawer(navigationView);
+            // AddJ - 권한 불러오기
+            getPerm();
+            drawerLayout.openDrawer(navigationView);
 //            cpNaverMap.setMinZoom(17.0);
 //            cpNaverMap.setMaxZoom(18.0);
 //            cpNaverMap.moveCamera(cameraUpdate);
@@ -266,7 +269,6 @@ public class Map extends AppCompatActivity implements NavigationView.OnNavigatio
             // 프로필 정보 - 사진 갱신
             ImageView iv_photo = (ImageView) header.findViewById(R.id.ImageView_Photo);
 
-            // Add - 사진이 없을 경우 기본 이미지 출력
             if(SignIn.MyImageLink == null) {
                 Drawable drawable = getResources().getDrawable(R.drawable.user);
                 iv_photo.setImageDrawable(drawable);
@@ -336,7 +338,29 @@ public class Map extends AppCompatActivity implements NavigationView.OnNavigatio
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+    
+    // AddJ - 권한 받아오기
+    private void getPerm(){
+        mDatabase1.collection("UserProfile").whereEqualTo("ID", Long.parseLong(SignIn.id))
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String Test1 = document.getData().toString();
 
+                                String[] Test2 = Test1.split(",");
+                                String Test3 = Test2[0];
+                                TestPerm = Test3.substring(7);
+                                System.out.println(TestPerm);
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                    }
+                });
 
+    }
 
 }

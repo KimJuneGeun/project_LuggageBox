@@ -2,6 +2,7 @@ package com.example.luggagebox;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,7 +11,9 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.vision.CameraSource;
@@ -20,12 +23,15 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
 
-public class QRCodeScan extends Activity {
+public class QRCodeScan extends AppCompatActivity {
 
     CameraSource cameraSource;
     SurfaceView cameraSurface;
+    String barcodeContents;
+    String bc;
+    int chk = 1;
     private ImageView btnBack;
-
+    Context ctx;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +48,7 @@ public class QRCodeScan extends Activity {
 
         cameraSurface = (SurfaceView) findViewById(R.id.cameraSurface); // SurfaceView 선언 :: Boilerplate
 
-        BarcodeDetector barcodeDetector = new BarcodeDetector.Builder(this)
+        final BarcodeDetector barcodeDetector = new BarcodeDetector.Builder(this)
                 .setBarcodeFormats(Barcode.QR_CODE) // QR_CODE로 설정하면 좀더 빠르게 인식할 수 있습니다.
                 .build();
         Log.d("NowStatus", "BarcodeDetector Build Complete");
@@ -91,11 +97,19 @@ public class QRCodeScan extends Activity {
             @Override
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 // 바코드가 인식되었을 때 무슨 일을 할까?
+
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
                 if(barcodes.size() != 0) {
-                    String barcodeContents = barcodes.valueAt(0).displayValue; // 바코드 인식 결과물
+                    barcodeContents = barcodes.valueAt(0).displayValue; // 바코드 인식 결과물
                     Log.d("Detection", barcodeContents);
+                    bc = barcodeContents;
+                    if(chk == 1) {
+                        Toast.makeText(getApplicationContext(), bc, Toast.LENGTH_LONG).show();
+                        chk = 2;
+                    }
+
                 }
+
             }
         });
     }

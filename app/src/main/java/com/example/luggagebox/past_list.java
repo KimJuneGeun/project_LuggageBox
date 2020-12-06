@@ -36,7 +36,7 @@ private ImageView btnBack;
         adapter = new pastAdapter();
         list.setAdapter(adapter);
         // 확인 버튼 이벤트 처리
-        adapter.addItem1("2020.10.27","동의대학교 지천관");
+        adapter.addItem1("2020.12.08","동의대학교 우체국");
         //listview 갱신.
         adapter.notifyDataSetChanged();
 
